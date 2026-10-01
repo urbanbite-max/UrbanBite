@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cocina | UrbanBite</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/cocina.css">
+</head>
+
+<body class="cocina-page has-prototype-nav" data-roles="cocina">
+
+<header class="cocina-topbar">
+    <div class="cocina-brand">
+        <div class="cocina-logo">UB</div>
+
+        <div>
+            <span>URBANBITE</span>
+            <h1>Cocina</h1>
+        </div>
+    </div>
+
+    <div class="cocina-top-actions">
+        <div class="cocina-hora" id="cocinaHora">--:--</div>
+
+        <button
+            id="actualizarCocinaBtn"
+            class="cocina-icon-btn"
+            type="button"
+            title="Actualizar"
+        >
+            ↻
+        </button>
+    </div>
+</header>
+
+
+<main class="cocina-main">
+
+    <section class="cocina-resumen">
+        <article>
+            <span>Nuevos</span>
+            <strong id="resumenNuevos">0</strong>
+        </article>
+
+        <article>
+            <span>Preparando</span>
+            <strong id="resumenPreparando">0</strong>
+        </article>
+
+        <article>
+            <span>Listos</span>
+            <strong id="resumenListos">0</strong>
+        </article>
+
+        <article>
+            <span>Entregados hoy</span>
+            <strong id="resumenEntregados">0</strong>
+        </article>
+    </section>
+
+
+    <section class="cocina-tabs">
+        <button class="cocina-tab active" data-cocina-tab="nuevo">
+            Nuevos
+            <span id="badgeNuevos">0</span>
+        </button>
+
+        <button class="cocina-tab" data-cocina-tab="preparando">
+            Preparando
+            <span id="badgePreparando">0</span>
+        </button>
+
+        <button class="cocina-tab" data-cocina-tab="listo">
+            Listos
+            <span id="badgeListos">0</span>
+        </button>
+
+        <button class="cocina-tab" data-cocina-tab="entregado">
+            Entregados
+        </button>
+    </section>
+
+
+    <section
+        class="pedidos-cocina-grid"
+        id="pedidosCocinaGrid"
+    ></section>
+
+
+    <section
+        class="cocina-vacia"
+        id="cocinaVacia"
+    >
+        <div>👨‍🍳</div>
+        <h2>No hay pedidos aquí</h2>
+        <p id="cocinaVaciaTexto">
+            Cuando Caja confirme un pago, el pedido aparecerá automáticamente.
+        </p>
+    </section>
+
+</main>
+
+
+<!-- MODAL PREPARACIÓN -->
+<div
+    class="cocina-modal"
+    id="modalPreparacion"
+>
+    <div
+        class="cocina-modal-fondo"
+        id="cerrarPreparacionFondo"
+    ></div>
+
+    <section class="cocina-modal-contenido">
+
+        <div class="cocina-modal-barra"></div>
+
+        <button
+            id="cerrarPreparacionBtn"
+            class="cocina-modal-cerrar"
+            type="button"
+        >
+            ✕
+        </button>
+
+        <div class="modal-prep-header">
+            <span>👨‍🍳 PREPARACIÓN</span>
+            <h2 id="modalPreparacionPedido">UB-001</h2>
+            <p id="modalPreparacionTipo">Mesa 1</p>
+        </div>
+
+        <div
+            id="modalPreparacionProductos"
+            class="modal-prep-productos"
+        ></div>
+
+    </section>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/productos.js"></script>
+<script src="js/cocina.js"></script>
+<nav class="prototype-nav" aria-label="Navegación del prototipo">
+    <a href="admin.html"><img class="nav-icon-img" src="img/admin.png" alt=""><span>Admin</span></a>
+    <a href="caja.html"><img class="nav-icon-img" src="img/caja.png" alt=""><span>Caja</span></a>
+    <a href="cocina.html" class="active"><img class="nav-icon-img" src="img/cocina.png" alt=""><span>Cocina</span></a>
+    <a href="menu.html"><img class="nav-icon-img" src="img/menu.png" alt=""><span>Menú</span></a>
+</nav>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanBite | Menú</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/menu.css">
+</head>
+<body class="has-prototype-nav" data-roles="invitado,admin,cocina">
+
+<header class="topbar">
+    <div class="topbar-inner">
+        <a class="brand" href="menu.html" aria-label="UrbanBite inicio">
+            <img src="img/urbanbite.png" alt="UrbanBite" class="brand-logo">
+        </a>
+
+        <div class="topbar-center">
+            <span class="restaurant-status"><i></i> Abierto ahora</span>
+            <p>Comida rápida preparada al momento</p>
+        </div>
+
+        <div class="topbar-actions">
+            <a class="nav-admin" href="admin.html" aria-label="Abrir administrador">
+                <span class="nav-admin-dot">UB</span>
+                <span class="nav-admin-text">Administrador</span>
+            </a>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section class="search-container">
+        <img src="img/comida-rapida.png" alt="Buscar comida" class="search-food-icon">
+        <input type="text" id="buscador" placeholder="Buscar hamburguesa, perro, bebida...">
+    </section>
+
+    <section class="categorias" id="categorias"></section>
+
+    <section class="section-header">
+        <div>
+            <span class="small-text">Nuestro menú</span>
+            <h2 id="tituloCategoria">Todos los productos</h2>
+        </div>
+    </section>
+
+    <section class="productos-grid" id="productos"></section>
+</main>
+
+<button class="carrito-flotante" id="botonCarrito">
+    <div class="carrito-info">
+        <span class="carrito-icon">🛒</span>
+        <div>
+            <small>Tu pedido</small>
+            <strong><span id="cantidadCarrito">0</span> productos</strong>
+        </div>
+    </div>
+    <div class="carrito-total">$<span id="totalCarrito">0</span></div>
+</button>
+
+<!-- MODAL PERSONALIZAR PRODUCTO -->
+<div class="producto-modal" id="productoModal">
+    <div class="modal-fondo" id="modalFondo"></div>
+
+    <section class="modal-contenido">
+        <div class="modal-barra"></div>
+
+        <button class="cerrar-modal" id="cerrarModal">✕</button>
+
+        <div class="modal-producto-imagen" id="modalImagen"></div>
+        <h2 id="modalNombre">Producto</h2>
+        <p class="modal-descripcion" id="modalDescripcion"></p>
+
+        <div class="modal-precio-base">
+            <span>Precio base</span>
+            <strong id="modalPrecio">$0</strong>
+        </div>
+
+        <section class="opciones-seccion" id="seccionExtras">
+            <div class="opciones-titulo">
+                <div>
+                    <h3>Agregar extras</h3>
+                    <span>Opcional</span>
+                </div>
+            </div>
+            <div id="listaExtras"></div>
+        </section>
+
+        <section class="opciones-seccion" id="seccionRemovibles">
+            <div class="opciones-titulo">
+                <div>
+                    <h3>¿Quieres quitar algo?</h3>
+                    <span>Opcional</span>
+                </div>
+            </div>
+            <div id="listaRemovibles"></div>
+        </section>
+
+        <section class="opciones-seccion">
+            <div class="opciones-titulo">
+                <div>
+                    <h3>Nota para cocina</h3>
+                    <span>Opcional</span>
+                </div>
+            </div>
+
+            <textarea
+                id="notaProducto"
+                class="nota-producto"
+                maxlength="120"
+                placeholder="Ej: poca salsa, bien cocida..."
+            ></textarea>
+        </section>
+
+        <section class="modal-cantidad">
+            <span>Cantidad</span>
+            <div class="selector-cantidad">
+                <button id="disminuirModal">−</button>
+                <strong id="cantidadModal">1</strong>
+                <button id="aumentarModal">+</button>
+            </div>
+        </section>
+
+        <button class="agregar-modal-btn" id="agregarProductoModal">
+            <span>Agregar al pedido</span>
+            <strong id="totalModal">$0</strong>
+        </button>
+    </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/productos.js"></script>
+<script src="js/carrito.js"></script>
+<script src="js/menu.js"></script>
+<nav class="prototype-nav" aria-label="Navegación del prototipo">
+    <a href="admin.html"><img class="nav-icon-img" src="img/admin.png" alt=""><span>Admin</span></a>
+    <a href="caja.html"><img class="nav-icon-img" src="img/caja.png" alt=""><span>Caja</span></a>
+    <a href="cocina.html"><img class="nav-icon-img" src="img/cocina.png" alt=""><span>Cocina</span></a>
+    <a href="menu.html" class="active"><img class="nav-icon-img" src="img/menu.png" alt=""><span>Menú</span></a>
+</nav>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión | UrbanBite</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="login-page">
+
+<main class="login-shell">
+    <section class="login-card">
+        <div class="login-brand-mark">UB</div>
+        <span class="login-eyebrow">URBANBITE ONLINE</span>
+        <h1>Bienvenido</h1>
+        <p class="login-copy">Entra al menú como invitado o inicia sesión para acceder a las herramientas del restaurante.</p>
+
+        <button id="entrarInvitadoBtn" class="login-guest-btn" type="button">
+            <span>🍔</span>
+            <div><strong>Entrar como invitado</strong><small>Ver menú y hacer un pedido</small></div>
+            <b>→</b>
+        </button>
+
+        <div class="login-divider"><span>Personal UrbanBite</span></div>
+
+        <form id="loginForm" class="login-form" autocomplete="on">
+            <label>
+                Usuario
+                <input id="loginUsuario" type="text" autocomplete="username" placeholder="admin o cocineros" required>
+            </label>
+            <label>
+                Contraseña
+                <input id="loginClave" type="password" autocomplete="current-password" placeholder="Contraseña" required>
+            </label>
+
+            <button id="loginSubmit" class="login-submit" type="submit">Iniciar sesión</button>
+            <p id="loginError" class="login-error" role="alert"></p>
+        </form>
+
+        <div class="login-demo-note">
+            <strong>Accesos del prototipo</strong>
+            <span>Administrador: <code>admin</code> / <code>admin</code></span>
+            <span>Cocina: <code>cocineros</code> / <code>cocineros</code></span>
+        </div>
+    </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/auth.js"></script>
+<script>
+(async () => {
+    await (window.urbanbiteAuthReady || Promise.resolve());
+
+    if (window.urbanbiteSesion?.rol === "admin") {
+        window.location.replace("admin.html");
+        return;
+    }
+    if (window.urbanbiteSesion?.rol === "cocina") {
+        window.location.replace("cocina.html");
+        return;
+    }
+
+    const errorEl = document.getElementById("loginError");
+    const submit = document.getElementById("loginSubmit");
+
+    document.getElementById("entrarInvitadoBtn").addEventListener("click", window.ubEntrarInvitado);
+    document.getElementById("loginForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        errorEl.textContent = "";
+        submit.disabled = true;
+        submit.textContent = "Entrando...";
+
+        const resultado = await window.ubIniciarSesion(
+            document.getElementById("loginUsuario").value,
+            document.getElementById("loginClave").value
+        );
+
+        submit.disabled = false;
+        submit.textContent = "Iniciar sesión";
+
+        if (!resultado.ok) {
+            errorEl.textContent = resultado.mensaje;
+            return;
+        }
+        window.location.href = resultado.destino;
+    });
+})();
+</script>
+</body>
+</html>

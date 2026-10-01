@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Administrador | UrbanBite</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body class="admin-page has-prototype-nav" data-roles="admin">
+
+<header class="admin-topbar">
+    <div class="admin-brand">
+        <div class="admin-logo">UB</div>
+
+        <div>
+            <span>ADMINISTRADOR</span>
+            <h1>UrbanBite</h1>
+        </div>
+    </div>
+
+    <div class="admin-actions">
+        <button
+            id="actualizarAdminBtn"
+            class="admin-icon-btn admin-icon-button"
+            title="Actualizar"
+            type="button"
+        >
+            ↻
+        </button>
+
+        <a href="caja.html" class="admin-icon-btn" title="Caja">💳</a>
+        <a href="cocina.html" class="admin-icon-btn" title="Cocina">👨‍🍳</a>
+    </div>
+</header>
+
+
+<main class="admin-main">
+
+    <section class="admin-tabs">
+        <button
+            class="admin-tab active"
+            data-admin-tab="resumen"
+        >
+            📊 Resumen
+        </button>
+
+        <button class="admin-tab" data-admin-tab="inventario">📦 Inventario</button>
+
+        <button class="admin-tab" data-admin-tab="catalogo">🍔 Menú y recetas</button>
+    </section>
+
+
+    <!-- ======================================
+         DASHBOARD
+    ======================================= -->
+    <section
+        id="vistaResumen"
+        class="admin-vista activa"
+    >
+
+        <section class="dashboard-hero">
+            <div>
+                <span class="admin-eyebrow">RESUMEN DEL DÍA</span>
+                <h2 id="dashboardFecha">Hoy</h2>
+                <p>
+                    Ventas, costos, productos y actividad del restaurante.
+                </p>
+            </div>
+
+            <div class="dashboard-status">
+                <span>● Sistema activo</span>
+                <small>Datos sincronizados con Supabase</small>
+            </div>
+        </section>
+
+
+        <section class="dashboard-kpis">
+
+            <article class="kpi-card">
+                <div class="kpi-icon">💰</div>
+
+                <div>
+                    <span>Ventas hoy</span>
+                    <strong id="kpiVentasHoy">$0</strong>
+                    <small id="kpiPedidosHoy">0 pedidos pagados</small>
+                </div>
+            </article>
+
+
+            <article class="kpi-card">
+                <div class="kpi-icon">🧾</div>
+
+                <div>
+                    <span>Ticket promedio</span>
+                    <strong id="kpiTicketPromedio">$0</strong>
+                    <small>Promedio por pedido pagado</small>
+                </div>
+            </article>
+
+
+            <article class="kpi-card">
+                <div class="kpi-icon">🧮</div>
+
+                <div>
+                    <span>Costo estimado</span>
+                    <strong id="kpiCostoHoy">$0</strong>
+                    <small>Según recetas e ingredientes</small>
+                </div>
+            </article>
+
+
+            <article class="kpi-card destacado">
+                <div class="kpi-icon">📈</div>
+
+                <div>
+                    <span>Ganancia bruta aprox.</span>
+                    <strong id="kpiGananciaHoy">$0</strong>
+                    <small id="kpiMargenHoy">Margen 0%</small>
+                </div>
+            </article>
+
+        </section>
+
+
+        <section class="dashboard-grid">
+
+            <!-- PRODUCTOS MÁS VENDIDOS -->
+            <article class="dashboard-card dashboard-card-grande">
+                <div class="dashboard-card-header">
+                    <div>
+                        <span class="admin-eyebrow">PRODUCTOS</span>
+                        <h3>Más vendidos hoy</h3>
+                    </div>
+
+                    <span
+                        class="dashboard-chip"
+                        id="totalUnidadesVendidas"
+                    >
+                        0 unidades
+                    </span>
+                </div>
+
+                <div
+                    id="productosMasVendidos"
+                    class="ranking-productos"
+                ></div>
+            </article>
+
+
+            <!-- MÉTODOS DE PAGO -->
+            <article class="dashboard-card">
+                <div class="dashboard-card-header">
+                    <div>
+                        <span class="admin-eyebrow">PAGOS</span>
+                        <h3>Métodos de pago</h3>
+                    </div>
+                </div>
+
+                <div
+                    id="metodosPagoDashboard"
+                    class="metodos-dashboard"
+                ></div>
+            </article>
+
+
+            <!-- ESTADOS DE COCINA -->
+            <article class="dashboard-card">
+                <div class="dashboard-card-header">
+                    <div>
+                        <span class="admin-eyebrow">COCINA</span>
+                        <h3>Pedidos de hoy</h3>
+                    </div>
+                </div>
+
+                <div class="cocina-dashboard-grid">
+                    <div>
+                        <span>Nuevos</span>
+                        <strong id="dashCocinaNuevos">0</strong>
+                    </div>
+
+                    <div>
+                        <span>Preparando</span>
+                        <strong id="dashCocinaPreparando">0</strong>
+                    </div>
+
+                    <div>
+                        <span>Listos</span>
+                        <strong id="dashCocinaListos">0</strong>
+                    </div>
+
+                    <div>
+                        <span>Entregados</span>
+                        <strong id="dashCocinaEntregados">0</strong>
+                    </div>
+                </div>
+            </article>
+
+
+            <!-- CONSUMO INGREDIENTES -->
+            <article class="dashboard-card dashboard-card-grande">
+                <div class="dashboard-card-header">
+                    <div>
+                        <span class="admin-eyebrow">CONSUMO</span>
+                        <h3>Ingredientes usados hoy</h3>
+                    </div>
+                </div>
+
+                <div
+                    id="consumoIngredientes"
+                    class="consumo-lista"
+                ></div>
+            </article>
+
+
+            <!-- ÚLTIMAS VENTAS -->
+            <article class="dashboard-card dashboard-card-full">
+                <div class="dashboard-card-header">
+                    <div>
+                        <span class="admin-eyebrow">ACTIVIDAD</span>
+                        <h3>Últimas ventas</h3>
+                    </div>
+
+                    <span
+                        class="dashboard-chip"
+                        id="ventasHistoricasChip"
+                    >
+                        0 ventas totales
+                    </span>
+                </div>
+
+                <div
+                    id="ultimasVentas"
+                    class="ultimas-ventas"
+                ></div>
+            </article>
+
+        </section>
+
+    </section>
+
+
+    <!-- ======================================
+         EDITOR DE MENÚ Y RECETAS - FASE 6
+    ======================================= -->
+    <section id="vistaCatalogo" class="admin-vista">
+        <section class="catalogo-hero">
+            <div>
+                <span class="admin-eyebrow">MENÚ EN LÍNEA</span>
+                <h2>Menú y recetas</h2>
+                <p>Edita precios, disponibilidad y cantidades de ingredientes sin tocar el código.</p>
+            </div>
+            <button id="restaurarCatalogoBtn" class="btn-secundario-admin" type="button">Recargar desde Supabase</button>
+        </section>
+
+        <div class="catalogo-toolbar">
+            <input id="buscarProductoAdmin" type="search" placeholder="Buscar producto...">
+            <select id="filtroCategoriaAdmin">
+                <option value="Todos">Todas las categorías</option>
+                <option>Hamburguesas</option><option>Perros</option><option>Papas</option><option>Bebidas</option><option>Combos</option>
+            </select>
+        </div>
+
+        <div id="catalogoAdminGrid" class="catalogo-admin-grid"></div>
+
+        <div id="editorProductoModal" class="editor-modal" aria-hidden="true">
+            <div class="editor-modal-fondo" data-cerrar-editor></div>
+            <section class="editor-modal-panel">
+                <header class="editor-modal-header">
+                    <div><span class="admin-eyebrow">EDITAR PRODUCTO</span><h2 id="editorProductoTitulo">Producto</h2></div>
+                    <button type="button" data-cerrar-editor>×</button>
+                </header>
+                <div class="editor-producto-resumen">
+                    <img id="editorProductoImagen" src="" alt="">
+                    <div class="editor-campos-principales">
+                        <label>Nombre<input id="editorNombre" type="text"></label>
+                        <label>Precio ($)<input id="editorPrecio" type="number" min="0" step="500"></label>
+                        <label class="editor-check"><input id="editorDisponible" type="checkbox"> Producto activo en el menú</label>
+                    </div>
+                </div>
+                <label class="editor-label-full">Descripción<textarea id="editorDescripcion" rows="2"></textarea></label>
+                <div class="editor-receta-header"><div><span class="admin-eyebrow">RECETA</span><h3>Ingredientes que se descuentan por venta</h3></div></div>
+                <div id="editorRecetaLista" class="editor-receta-lista"></div>
+                <footer class="editor-modal-footer">
+                    <button type="button" class="btn-secundario-admin" data-cerrar-editor>Cancelar</button>
+                    <button type="button" id="guardarProductoAdminBtn" class="btn-primario-admin">Guardar cambios</button>
+                </footer>
+            </section>
+        </div>
+    </section>
+
+    <!-- ======================================
+         INVENTARIO
+    ======================================= -->
+    <section
+        id="vistaInventario"
+        class="admin-vista"
+    >
+
+        <section class="admin-resumen">
+            <article>
+                <span>Ingredientes fijos</span>
+                <strong id="totalIngredientes">0</strong>
+            </article>
+
+            <article>
+                <span>Stock bajo</span>
+                <strong id="totalStockBajo">0</strong>
+            </article>
+
+            <article>
+                <span>Movimientos</span>
+                <strong id="totalMovimientos">0</strong>
+            </article>
+        </section>
+
+
+        <section
+            class="alertas-inventario"
+            id="alertasInventario"
+        >
+            <div class="alertas-header">
+                <div>
+                    <span>⚠️ ALERTAS</span>
+                    <h2>Ingredientes por reabastecer</h2>
+                </div>
+            </div>
+
+            <div
+                class="alertas-lista"
+                id="alertasLista"
+            ></div>
+        </section>
+
+
+        <section class="admin-layout">
+
+            <section class="inventario-panel">
+
+                <div class="panel-admin-header">
+                    <div>
+                        <span class="admin-eyebrow">INVENTARIO DEL MENÚ</span>
+                        <h2>Ingredientes fijos</h2>
+                        <p>
+                            Estos ingredientes están conectados a las recetas.
+                            Solo cambia la cantidad disponible.
+                        </p>
+                    </div>
+                </div>
+
+                <div id="inventarioCategorias"></div>
+
+            </section>
+
+
+            <aside class="movimientos-panel">
+
+                <div class="panel-admin-header">
+                    <div>
+                        <span class="admin-eyebrow">HISTORIAL</span>
+                        <h2>Movimientos</h2>
+                    </div>
+                </div>
+
+                <div
+                    class="movimientos-lista"
+                    id="movimientosLista"
+                ></div>
+
+            </aside>
+
+        </section>
+
+
+        <section class="zona-demo">
+            <div>
+                <span>SINCRONIZACIÓN</span>
+                <h3>Actualizar inventario</h3>
+                <p>
+                    Vuelve a consultar Supabase y muestra el stock más reciente.
+                </p>
+            </div>
+
+            <button id="reiniciarInventarioBtn">
+                Actualizar ahora
+            </button>
+        </section>
+
+    </section>
+
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/productos.js"></script>
+<script src="js/inventario.js"></script>
+<script src="js/admin.js"></script>
+<nav class="prototype-nav" aria-label="Navegación del prototipo">
+    <a href="admin.html" class="active"><img class="nav-icon-img" src="img/admin.png" alt=""><span>Admin</span></a>
+    <a href="caja.html"><img class="nav-icon-img" src="img/caja.png" alt=""><span>Caja</span></a>
+    <a href="cocina.html"><img class="nav-icon-img" src="img/cocina.png" alt=""><span>Cocina</span></a>
+    <a href="menu.html"><img class="nav-icon-img" src="img/menu.png" alt=""><span>Menú</span></a>
+</nav>
+</body>
+</html>

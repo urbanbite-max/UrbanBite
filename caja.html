@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caja | UrbanBite</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/caja.css">
+</head>
+
+<body class="caja-page has-prototype-nav" data-roles="cocina">
+
+<header class="caja-topbar">
+    <div class="caja-brand">
+        <div class="caja-logo">UB</div>
+
+        <div>
+            <span>UrbanBite</span>
+            <h1>Caja</h1>
+        </div>
+    </div>
+
+    <div class="caja-top-actions">
+        <button
+            class="icon-btn"
+            id="actualizarCajaBtn"
+            title="Actualizar pedidos"
+            aria-label="Actualizar pedidos"
+        >
+            ↻
+        </button>
+
+        <a
+            class="icon-btn"
+            data-admin-only
+            href="admin.html"
+            title="Inventario"
+            aria-label="Abrir inventario"
+        >
+            📦
+        </a>
+
+        <a
+            class="icon-btn"
+            href="menu.html"
+            title="Ir al menú"
+            aria-label="Ir al menú"
+        >
+            🍔
+        </a>
+    </div>
+</header>
+
+
+<main class="caja-main">
+
+    <!-- RESUMEN DEL TURNO -->
+    <section class="caja-resumen">
+        <article>
+            <span>Pendientes</span>
+            <strong id="contadorPendientes">0</strong>
+        </article>
+
+        <article>
+            <span>Pagados hoy</span>
+            <strong id="contadorPagados">0</strong>
+        </article>
+
+        <article>
+            <span>Ventas hoy</span>
+            <strong id="ventasHoy">$0</strong>
+        </article>
+    </section>
+
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <section class="caja-layout">
+
+        <!-- PANEL IZQUIERDO -->
+        <aside class="pedidos-panel">
+
+            <div class="pedidos-panel-header">
+                <div>
+                    <span class="panel-eyebrow">PEDIDOS</span>
+                    <h2>Control de caja</h2>
+                </div>
+            </div>
+
+            <div class="caja-tabs">
+                <button
+                    class="caja-tab active"
+                    data-tab="pendientes"
+                >
+                    Pendientes
+                    <span id="badgePendientes">0</span>
+                </button>
+
+                <button
+                    class="caja-tab"
+                    data-tab="pagados"
+                >
+                    Pagados
+                </button>
+            </div>
+
+            <div class="caja-buscador">
+                <span>🔎</span>
+
+                <input
+                    id="buscarPedido"
+                    type="search"
+                    placeholder="Buscar UB-001, nombre o mesa..."
+                    autocomplete="off"
+                >
+            </div>
+
+            <div
+                class="lista-pedidos-caja"
+                id="listaPedidosCaja"
+            ></div>
+
+        </aside>
+
+
+        <!-- PANEL DERECHO -->
+        <section class="detalle-panel">
+
+            <!-- ESTADO SIN SELECCIÓN -->
+            <div
+                class="sin-pedido-seleccionado"
+                id="sinPedidoSeleccionado"
+            >
+                <div>🧾</div>
+                <h2>Selecciona un pedido</h2>
+                <p>
+                    El detalle aparecerá aquí para que puedas revisar
+                    productos, total y confirmar el pago.
+                </p>
+            </div>
+
+
+            <!-- DETALLE DEL PEDIDO -->
+            <div
+                class="detalle-pedido"
+                id="detallePedido"
+            >
+
+                <div class="detalle-cabecera">
+
+                    <div>
+                        <span
+                            class="estado-badge pendiente"
+                            id="detalleEstado"
+                        >
+                            Pendiente de pago
+                        </span>
+
+                        <h2 id="detalleNumeroPedido">
+                            UB-001
+                        </h2>
+
+                        <p id="detalleFecha">
+                            Hoy · 2:35 p. m.
+                        </p>
+                    </div>
+
+                    <div class="detalle-total-top">
+                        <span>Total</span>
+                        <strong id="detalleTotalTop">$0</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="datos-cliente-caja">
+
+                    <article>
+                        <span>Cliente</span>
+                        <strong id="detalleCliente">Cliente</strong>
+                    </article>
+
+                    <article>
+                        <span>Tipo</span>
+                        <strong id="detalleTipo">Mesa 4</strong>
+                    </article>
+
+                </div>
+
+
+                <section class="detalle-seccion">
+
+                    <div class="detalle-seccion-titulo">
+                        <h3>Productos</h3>
+                        <span id="detalleCantidadProductos">0 productos</span>
+                    </div>
+
+                    <div
+                        class="productos-detalle-caja"
+                        id="productosDetalleCaja"
+                    ></div>
+
+                </section>
+
+
+                <section
+                    class="nota-general-caja"
+                    id="notaGeneralCaja"
+                >
+                    <span>📝 Nota general</span>
+                    <p id="detalleNotaGeneral"></p>
+                </section>
+
+
+                <section class="detalle-resumen-caja">
+
+                    <div>
+                        <span>Subtotal</span>
+                        <strong id="detalleSubtotal">$0</strong>
+                    </div>
+
+                    <div class="total-linea-caja">
+                        <span>Total</span>
+                        <strong id="detalleTotal">$0</strong>
+                    </div>
+
+                </section>
+
+
+                <!-- PAGO -->
+                <section
+                    class="pago-caja"
+                    id="pagoCaja"
+                >
+
+                    <div class="detalle-seccion-titulo">
+                        <div>
+                            <h3>Registrar pago</h3>
+                            <span>Selecciona el método recibido</span>
+                        </div>
+                    </div>
+
+
+                    <div class="metodos-pago">
+
+                        <button
+                            class="metodo-pago active"
+                            data-metodo="efectivo"
+                        >
+                            <span>💵</span>
+                            Efectivo
+                        </button>
+
+                        <button
+                            class="metodo-pago"
+                            data-metodo="tarjeta"
+                        >
+                            <span>💳</span>
+                            Tarjeta
+                        </button>
+
+                        <button
+                            class="metodo-pago"
+                            data-metodo="transferencia"
+                        >
+                            <span>📲</span>
+                            Transferencia
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        class="efectivo-box"
+                        id="efectivoBox"
+                    >
+
+                        <label for="montoRecibido">
+                            Monto recibido
+                        </label>
+
+                        <div class="input-dinero">
+                            <span>$</span>
+
+                            <input
+                                id="montoRecibido"
+                                type="number"
+                                min="0"
+                                step="100"
+                                inputmode="numeric"
+                                placeholder="0"
+                            >
+                        </div>
+
+
+                        <div class="cambio-box">
+                            <span>Cambio</span>
+                            <strong id="cambioCalculado">$0</strong>
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="confirmar-pago-btn"
+                        id="confirmarPagoBtn"
+                    >
+                        <div>
+                            <span>✓ Confirmar pago</span>
+                            <small id="confirmarPagoTexto">
+                                Registrar como pagado
+                            </small>
+                        </div>
+
+                        <strong id="confirmarPagoTotal">$0</strong>
+                    </button>
+
+
+                    <button
+                        class="cancelar-pedido-btn"
+                        id="cancelarPedidoBtn"
+                    >
+                        Cancelar pedido
+                    </button>
+
+                </section>
+
+
+                <!-- INFORMACIÓN DE PAGO CUANDO YA ESTÁ PAGADO -->
+                <section
+                    class="pago-confirmado"
+                    id="pagoConfirmado"
+                >
+                    <div class="pago-confirmado-icon">✓</div>
+
+                    <div>
+                        <span>PAGO CONFIRMADO</span>
+                        <strong id="pagoConfirmadoMetodo">
+                            Efectivo
+                        </strong>
+                        <small id="pagoConfirmadoFecha"></small>
+                    </div>
+                </section>
+
+            </div>
+
+        </section>
+
+    </section>
+
+</main>
+
+
+<!-- MODAL CONFIRMACIÓN DE PAGO -->
+<div
+    class="modal-caja"
+    id="modalPagoExitoso"
+>
+    <div class="modal-caja-fondo"></div>
+
+    <div class="modal-caja-contenido">
+
+        <div class="modal-exito-icon">
+            ✓
+        </div>
+
+        <span class="panel-eyebrow">
+            PAGO REGISTRADO
+        </span>
+
+        <h2 id="modalPagoNumero">
+            UB-001
+        </h2>
+
+        <p>
+            El pedido quedó pagado, el inventario se actualizó
+            y Cocina lo recibe automáticamente.
+        </p>
+
+        <button id="cerrarModalPago">
+            Continuar
+        </button>
+
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/productos.js"></script>
+<script src="js/caja.js"></script>
+<nav class="prototype-nav" aria-label="Navegación del prototipo">
+    <a href="admin.html"><img class="nav-icon-img" src="img/admin.png" alt=""><span>Admin</span></a>
+    <a href="caja.html" class="active"><img class="nav-icon-img" src="img/caja.png" alt=""><span>Caja</span></a>
+    <a href="cocina.html"><img class="nav-icon-img" src="img/cocina.png" alt=""><span>Cocina</span></a>
+    <a href="menu.html"><img class="nav-icon-img" src="img/menu.png" alt=""><span>Menú</span></a>
+</nav>
+</body>
+</html>

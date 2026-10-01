@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar pedido | UrbanBite</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="pedido-page" data-roles="invitado,admin,cocina">
+
+<header class="pedido-header">
+    <button class="volver-btn" onclick="window.location.href='carrito.html'">←</button>
+    <div>
+        <span>UrbanBite</span>
+        <h1>Confirmar pedido</h1>
+    </div>
+</header>
+
+<main class="pedido-main">
+
+    <section class="pedido-card" id="datosPedidoCard">
+        <div class="paso-etiqueta">PASO FINAL</div>
+        <h2>¿Cómo quieres recibir tu pedido?</h2>
+        <p class="texto-secundario">Estos datos aparecerán en caja y cocina.</p>
+
+        <div class="tipo-pedido-grid">
+            <button type="button" class="tipo-pedido-btn active" data-tipo="mesa">
+                <span>🍽️</span>
+                <strong>Comer aquí</strong>
+                <small>Mesa del restaurante</small>
+            </button>
+
+            <button type="button" class="tipo-pedido-btn" data-tipo="llevar">
+                <span>🥡</span>
+                <strong>Para llevar</strong>
+                <small>Recoges en caja</small>
+            </button>
+        </div>
+
+        <div class="form-grupo">
+            <label for="nombreCliente">Nombre</label>
+            <input
+                id="nombreCliente"
+                type="text"
+                maxlength="40"
+                placeholder="Ej: Ansoni"
+                autocomplete="name"
+            >
+            <small>Opcional, pero ayuda a identificar el pedido.</small>
+        </div>
+
+        <div class="form-grupo" id="grupoMesa">
+            <label for="numeroMesa">Número de mesa</label>
+            <input
+                id="numeroMesa"
+                type="number"
+                min="1"
+                max="99"
+                inputmode="numeric"
+                placeholder="Ej: 4"
+            >
+        </div>
+
+        <div class="form-grupo">
+            <label for="notaGeneral">Nota general</label>
+            <textarea
+                id="notaGeneral"
+                maxlength="160"
+                placeholder="Ej: todo para servir al mismo tiempo..."
+            ></textarea>
+            <small>Opcional.</small>
+        </div>
+    </section>
+
+    <section class="pedido-card">
+        <div class="pedido-card-titulo">
+            <div>
+                <span class="small-text">Revisa antes de enviar</span>
+                <h2>Resumen del pedido</h2>
+            </div>
+            <button class="editar-carrito-btn" onclick="window.location.href='carrito.html'">
+                Editar
+            </button>
+        </div>
+
+        <div id="resumenFinalProductos" class="resumen-final-productos"></div>
+
+        <div class="separador"></div>
+
+        <div class="resumen-linea">
+            <span>Productos</span>
+            <span id="cantidadFinal">0</span>
+        </div>
+
+        <div class="resumen-total pedido-total-final">
+            <span>Total</span>
+            <strong>$<span id="totalFinal">0</span></strong>
+        </div>
+    </section>
+
+    <button class="generar-pedido-btn" id="generarPedidoBtn">
+        <div>
+            <span>Generar pedido</span>
+            <small>El pago se confirma en caja</small>
+        </div>
+        <strong>→</strong>
+    </button>
+
+    <section class="pedido-exito" id="pedidoExito">
+        <div class="pedido-exito-icon">✓</div>
+        <span class="small-text">PEDIDO GENERADO</span>
+        <h2 id="numeroPedidoGenerado">UB-001</h2>
+        <p>Muéstrale este número al cajero para realizar el pago.</p>
+
+        <div class="estado-pedido">
+            <span class="estado-dot"></span>
+            Pendiente de pago
+        </div>
+
+        <div class="pedido-exito-botones">
+            <button onclick="window.location.href='menu.html'">Volver al menú</button>
+        </div>
+    </section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/productos.js"></script>
+<script src="js/carrito.js"></script>
+<script src="js/pedidos.js"></script>
+</body>
+</html>
